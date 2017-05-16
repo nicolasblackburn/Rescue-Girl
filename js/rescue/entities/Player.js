@@ -1,29 +1,23 @@
-var rescue = rescue || {};
-rescue.entities = rescue.entities || {};
-var __namespace__ = rescue;
-
-(function(ns) { 
+define(["PIXI", "rescue/engine", "rescue/utils"], function(PIXI, engine, utils) { 
 	var 
-		Animation = ns.engine.Animation,
-		boundNumber = ns.utils.boundNumber,
-		callIfDefined = ns.utils.callIfDefined,
-		getInput = ns.utils.getInput,
-		getTicker = ns.utils.getTicker,
-		mixin = ns.utils.mixin,
-		Sprite = ns.engine.Sprite,
+		Animation = engine.Animation,
+		boundNumber = utils.boundNumber,
+		callIfDefined = utils.callIfDefined,
+		Input = engine.Input,
+		getTicker = utils.getTicker,
+		mixin = utils.mixin,
+		Sprite = engine.Sprite,
 		TextureCache = PIXI.utils.TextureCache
-		Vector2D = ns.engine.Vector2D;
-		
-	var __classname__ = "Player";
+		Vector2D = engine.Vector2D;
 			
-	var __class__ = function() {
+	var __module__ = function() {
 		Sprite.call(this);
 	};
 	
-	__class__.prototype = Object.create(Sprite.prototype);
-	__class__.prototype.constructor = __class__;
+	__module__.prototype = Object.create(Sprite.prototype);
+	__module__.prototype.constructor = __module__;
 	
-	mixin(__class__.prototype,  {
+	mixin(__module__.prototype,  {
 		
 		setup: function(app) {
 			this.speed = 4;
@@ -85,9 +79,9 @@ var __namespace__ = rescue;
 		},
 		
 		getMovementFromInput: function() {
-			var input = getInput();
+			var input = Input.getInstance();
 			
-			var v = new ns.engine.Vector2D(0, 0);
+			var v = new Vector2D(0, 0);
 			
 			if (input.getInput("left")) {
 				v.x = -1;
@@ -113,11 +107,11 @@ var __namespace__ = rescue;
 		
 		onEnterIdleState: function() {
 			this.setAnimation("idle-"+this.direction);
-			this.velocity = new  Vector2D(0,0);
+			this.velocity = new Vector2D(0,0);
 		},
 		
 		onUpdateIdleState: function() {
-			var input = getInput();
+			var input = Input.getInstance();
 			
 			if (input.getInput("punch")) {
 				this.setState("punch");
@@ -151,7 +145,7 @@ var __namespace__ = rescue;
 		},
 		
 		onUpdatePunchState: function() {
-			var input = getInput();
+			var input = Input.getInstance();
 			if (this.animation.paused && !input.getInput("punch")) {
 				this.setState("idle");
 			}
@@ -162,7 +156,7 @@ var __namespace__ = rescue;
 		},
 		
 		onUpdateWalkingState: function() {
-			var input = getInput();
+			var input = Input.getInstance();
 			
 			if (input.getInput("punch")) {
 				this.setState("punch");
@@ -230,8 +224,6 @@ var __namespace__ = rescue;
 	
 	});
  
-	ns.entities[__classname__] = __class__;
+	return __module__;
 	
-	return ns;
-	
-})(__namespace__);
+});

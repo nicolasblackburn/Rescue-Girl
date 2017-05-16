@@ -1,14 +1,8 @@
-var rescue = rescue || {};
-rescue.engine = rescue.engine || {};
-var __namespace__ = rescue;
-
-(function(ns) { 
+define(["rescue/utils"], function(utils) { 
 	var
-		mixin = ns.utils.mixin;
+		mixin = utils.mixin;
 	
-	var __classname__ = "Vector2D";
-	
-	var __class__ = function(x, y) {
+	var __module__ = function(x, y) {
 		var self = this;
 		
 		this.x = x;
@@ -17,7 +11,7 @@ var __namespace__ = rescue;
 		this._normal = null;
 	};
 	
-	mixin(__class__.prototype, {
+	mixin(__module__.prototype, {
 		add: function(vec) {
 			this.x += vec.x;
 			this.y += vec.y;
@@ -34,9 +28,9 @@ var __namespace__ = rescue;
 				var norm = Math.sqrt(this.x*this.x+this.y*this.y);
 				
 				if (0 == norm) {
-					this._normal = new __class__(0, 0);
+					this._normal = new __module__(0, 0);
 				} else {
-					this._normal = new __class__(this.x/norm, this.y/norm);
+					this._normal = new __module__(this.x/norm, this.y/norm);
 				}
 			}
 			return this._normal;
@@ -57,9 +51,6 @@ var __namespace__ = rescue;
 		}
 	});
  
-	ns.engine = ns.engine || {};
-	ns.engine[__classname__] = __class__;
+	return __module__;
 	
-	return ns;
-	
-})(__namespace__);
+});

@@ -1,15 +1,9 @@
-var rescue = rescue || {};
-rescue.engine = rescue.engine || {};
-var __namespace__ = rescue;
-
-(function(ns) { 
+define(["rescue/utils"], function(utils) { 
 	var 
-		getTicker = ns.utils.getTicker,
-		mixin = ns.utils.mixin;
+		getTicker = utils.getTicker,
+		mixin = utils.mixin;
 	
-	var __classname__ = "Animation";
-	
-	var __class__ = function() {
+	var __module__ = function() {
 		this.frames = [];
 		this.currentFrame = 0;
 		this.startTime = null;
@@ -18,7 +12,7 @@ var __namespace__ = rescue;
 		this.loop = true;
 	};
 	
-	mixin(__class__.prototype, {
+	mixin(__module__.prototype, {
 	
 		addFrame: function(obj, duration) {
 			this.frames.push({
@@ -74,9 +68,7 @@ var __namespace__ = rescue;
 			}
 		}
 	});
- 
-	ns.engine[__classname__] = __class__;
 	
-	return ns;
+	return __module__;
 	
-})(__namespace__);
+});

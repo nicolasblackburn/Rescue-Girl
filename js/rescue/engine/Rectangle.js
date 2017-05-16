@@ -1,10 +1,8 @@
-var rescue = (function(ns) { 
+define(["rescue/utils"], function(utils) { 
 	var
-		mixin = ns.utils.mixin;
+		mixin = utils.mixin;
 	
-	var __classname__ = "Rectangle";
-	
-	var __class__ = function(x, y, width, height) {
+	var __module__ = function(x, y, width, height) {
 		var self = this;
 		
 		this.x = x;
@@ -12,10 +10,6 @@ var rescue = (function(ns) {
 		this.width = width;
 		this.height = height;
 	};
- 
-	ns.engine = ns.engine || {};
-	ns.engine[__classname__] = __class__;
 	
-	return ns;
-	
-})(rescue || {});
+	return __module__;
+});

@@ -1,16 +1,14 @@
-var rescue = rescue || {};
-rescue.engine = rescue.engine || {};
-var __namespace__ = rescue;
-
-(function(ns) { 
+define(["rescue/utils"], function(utils) { 
+	var utils = require("rescue/utils");
+	
 	var
-		callIfDefined = ns.utils.callIfDefined,
-		log = ns.utils.log,
-		mixin = ns.utils.mixin;
+		callIfDefined = utils.callIfDefined,
+		log = utils.log,
+		mixin = utils.mixin;
+		
+	var input;
 	
-	var __classname__ = "Input";
-	
-	var __class__ = function() {
+	var __module__ = function() {
 		var self = this;
 		
 		function keyboard() {
@@ -90,8 +88,7 @@ var __namespace__ = rescue;
 			false);
 	};
 	
-	
-	mixin(__class__.prototype, {
+	mixin(__module__.prototype, {
 		
 		addListener: function(listener) {
 			if (!this.listeners.includes(listener)) {
@@ -102,6 +99,20 @@ var __namespace__ = rescue;
 	
 		getInput: function(id) {
 			return this.keyboard[id].isDown;
+		},
+		
+		logKeyCode: function() {
+			
+			var listener = function (event) {
+				log(event);
+				window.removeEventListener('keydown', listener, false );
+			};
+			
+			window.addEventListener(
+				"keydown", listener, false);
+				
+			return this;
+			
 		},
 		
 		processEvents: function() {
@@ -129,27 +140,19 @@ var __namespace__ = rescue;
 			}
 			
 			return this;
-		},
-		
-		logKeyCode: function() {
-			
-			var listener = function (event) {
-				log(event);
-				window.removeEventListener('keydown', listener, false );
-			};
-			
-			window.addEventListener(
-				"keydown", listener, false);
-				
-			return this;
-			
 		}
 		
 	});
+	
+	mixin(__module__, {
+		getInstance: function () {
+			if (null == input) {
+				input = new __module__();
+			}
+			return input;
+		}
+	});
  
-	ns.engine = ns.engine || {};
-	ns.engine[__classname__] = __class__;
+	return __module__;
 	
-	return ns;
-	
-})(__namespace__);
+});

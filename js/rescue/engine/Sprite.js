@@ -1,27 +1,21 @@
-var rescue = rescue || {};
-rescue.engine = rescue.engine || {};
-var __namespace__ = rescue;
-
-(function(ns) { 
+define(["PIXI", "rescue/engine/Vector2D", "rescue/utils"], function(PIXI, Vector2D, utils) { 
 	var 
-		callIfDefined = ns.utils.callIfDefined,
+		callIfDefined = utils.callIfDefined,
 		Sprite = PIXI.Sprite,
-		mixin = ns.utils.mixin,
-		Vector2D = ns.engine.Vector2D;
-		
-	var __classname__ = "Sprite";
+		mixin = utils.mixin,
+		TextureCache = PIXI.utils.TextureCache;
 			
-	var __class__ = function() {
+	var __module__ = function() {
 		Sprite.call(this);
 		
 		this.acceleration = new Vector2D(0,0);
 		this.velocity = new Vector2D(0,0);
 	};
 	
-	__class__.prototype = Object.create(Container.prototype);
-	__class__.prototype.constructor = __class__;
+	__module__.prototype = Object.create(Sprite.prototype);
+	__module__.prototype.constructor = __module__;
 	
-	mixin(__class__.prototype, {
+	mixin(__module__.prototype, {
 		
 		setAnimation: function(id) {
 			if (this.animations && this.animations[id]) {
@@ -34,7 +28,7 @@ var __namespace__ = rescue;
 		},
 		
 		setState: function(id) {
-			var fn, ticker = getTicker();
+			var fn;
 			
 			if (this.state) {
 				fn = "onExit" + this.state[0].toUpperCase() + this.state.slice(1) + "State";
@@ -49,10 +43,7 @@ var __namespace__ = rescue;
 			}
 		}
 	});
- 
-	ns.engine = ns.engine || {};
-	ns.engine[__classname__] = __class__;
 	
-	return ns;
+	return __module__;
 	
-})(__namespace__);
+});

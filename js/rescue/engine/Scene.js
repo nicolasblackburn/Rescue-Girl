@@ -1,23 +1,17 @@
-var rescue = rescue || {};
-rescue.engine = rescue.engine || {};
-var __namespace__ = rescue;
-
-(function(ns) { 
+define(["PIXI", "rescue/utils"], function(PIXI, utils) { 
 	var 
-		callIfDefined = ns.utils.callIfDefined,
+		callIfDefined = utils.callIfDefined,
 		Container = PIXI.Container,
-		mixin = ns.utils.mixin;
-		
-	var __classname__ = "Scene";
+		mixin = utils.mixin;
 			
-	var __class__ = function() {
+	var __module__ = function() {
 		Container.call(this);
 	};
 	
-	__class__.prototype = Object.create(Container.prototype);
-	__class__.prototype.constructor = __class__;
+	__module__.prototype = Object.create(Container.prototype);
+	__module__.prototype.constructor = __module__;
 	
-	mixin(__class__.prototype, {
+	mixin(__module__.prototype, {
 		onKeyDown: function(event) {
 			this.children.forEach(function(o) {
 				callIfDefined(o, "onKeyDown", [event]);
@@ -43,9 +37,6 @@ var __namespace__ = rescue;
 		}
 	});
  
-	ns.engine = ns.engine || {};
-	ns.engine[__classname__] = __class__;
+	return __module__;
 	
-	return ns;
-	
-})(__namespace__);
+});

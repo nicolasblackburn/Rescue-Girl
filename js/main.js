@@ -1,26 +1,24 @@
-var rescue = rescue || {};
-
-(function(PIXI, ns) {
+require(["PIXI", "rescue"], function(PIXI, rescue) {
 	var
 		autoDetectRenderer = PIXI.autoDetectRenderer,
-		callIfDefined = ns.utils.callIfDefined,
-		getInput = ns.utils.getInput,
-		getTicker = ns.utils.getTicker,
+		callIfDefined = rescue.utils.callIfDefined,
+		getTicker = rescue.utils.getTicker,
+		Input = rescue.engine.Input,
 		loader = PIXI.loader,
-		MainScene = ns.scenes.MainScene,
+		MainScene = rescue.scenes.MainScene,
 		resources = PIXI.loader.resources,
-		Rectangle = ns.engine.Rectangle,
+		Rectangle = rescue.engine.Rectangle,
 		Ticker = PIXI.ticker.Ticker;
 
-	var DEBUG = ns.DEBUG = true;
-	var VIEWPORT = ns.VIEWPORT = new Rectangle(0, 0, 16*55, 9*55);
+	var DEBUG = rescue.DEBUG = true;
+	var VIEWPORT = rescue.VIEWPORT = new Rectangle(0, 0, 16*55, 9*55);
 
 	var renderer = autoDetectRenderer(VIEWPORT.width, VIEWPORT.height);
 
 	document.body.appendChild(renderer.view);
 
 	var game = window.game = {
-		input: getInput(),
+		input: Input.getInstance(),
 		renderer: null,
 		scene: null,
 		ticker: getTicker(),
@@ -80,4 +78,4 @@ var rescue = rescue || {};
 	};
 
 	game.start();
-})(PIXI, rescue);
+});

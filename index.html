@@ -5,6 +5,15 @@
 		<title></title>
 	</head>
 	<body>
+		<script>
+		var require = {
+			paths: {
+				PIXI: "../lib/pixi.js/dist/pixi.min"
+			}
+		};
+		</script>
+		<script src="lib/requirejs/require.min.js" data-main="js/main"></script>
+		<!--
 		<script src="lib/pixi.js/dist/pixi.min.js"></script>
 		<script src="js/polyfills.js"></script>
 		<script src="js/rescue/utils/index.js"></script>
@@ -17,5 +26,6 @@
 		<script src="js/rescue/entities/Player.js"></script>
 		<script src="js/rescue/scenes/MainScene.js"></script>
 		<script src="js/main.js"></script>
+		-->
 	</body>
 </html>
