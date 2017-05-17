@@ -1,17 +1,21 @@
-define(["PIXI", "rescue/utils"], function(PIXI, utils) { 
+define([
+	"PIXI", 
+	"rescue/utils/callIfDefined", 
+	"rescue/utils/mixin"
+	
+	], function( PIXI, callIfDefined, mixin ) { 
+		
 	var 
-		callIfDefined = utils.callIfDefined,
-		Container = PIXI.Container,
-		mixin = utils.mixin;
-			
-	var __module__ = function() {
+		Container = PIXI.Container;
+	
+	var Scene = function() {
 		Container.call(this);
 	};
 	
-	__module__.prototype = Object.create(Container.prototype);
-	__module__.prototype.constructor = __module__;
+	Scene.prototype = Object.create(Container.prototype);
+	Scene.prototype.constructor = Scene;
 	
-	mixin(__module__.prototype, {
+	mixin(Scene.prototype, {
 		onKeyDown: function(event) {
 			this.children.forEach(function(o) {
 				callIfDefined(o, "onKeyDown", [event]);
@@ -30,13 +34,13 @@ define(["PIXI", "rescue/utils"], function(PIXI, utils) {
 			});	
 		},
 		
-		update: function(time) {
+		update: function() {
 			this.children.forEach(function(o) {
-				callIfDefined(o, "update", [time]);
+				callIfDefined(o, "update");
 			});	
 		}
 	});
  
-	return __module__;
+	return Scene;
 	
 });

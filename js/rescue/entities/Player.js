@@ -1,79 +1,71 @@
-define(["PIXI", "rescue/engine", "rescue/utils"], function(PIXI, engine, utils) { 
-	var 
-		Animation = engine.Animation,
-		boundNumber = utils.boundNumber,
-		callIfDefined = utils.callIfDefined,
-		Input = engine.Input,
-		getTicker = utils.getTicker,
-		mixin = utils.mixin,
-		Sprite = engine.Sprite,
-		TextureCache = PIXI.utils.TextureCache
-		Vector2D = engine.Vector2D;
+define([
+	"PIXI", 
+	"rescue/animations/PlayerAnimations",
+	"rescue/engine/GameObject",  
+	"rescue/engine/Input", 
+	"rescue/engine/Rectangle", 
+	"rescue/engine/Vector2D", 
+	"rescue/utils/boundNumber", 
+	"rescue/utils/getSound", 
+	"rescue/utils/getTicker", 
+	"rescue/utils/mixin"
+	
+	], function( PIXI, PlayerAnimations, GameObject, Input, Rectangle, Vector2D, boundNumber, getSound, getTicker, mixin ) { 
 			
-	var __module__ = function() {
-		Sprite.call(this);
+	var Player = function() {
+		GameObject.call(this);
 	};
 	
-	__module__.prototype = Object.create(Sprite.prototype);
-	__module__.prototype.constructor = __module__;
+	Player.prototype = Object.create(GameObject.prototype);
+	Player.prototype.constructor = Player;
 	
-	mixin(__module__.prototype,  {
+	var boundary = new Rectangle(0, 0, 16*55, 9*55);
+	
+	mixin(Player.prototype,  {
 		
 		setup: function(app) {
-			this.speed = 4;
+			var self = this;
+		
+			this.animations = new PlayerAnimations();
 			
-			this.animations = {
-				"idle-left": new Animation()
-					.addFrame("girl-walking-left-0-4x.png", 1000),
-				"idle-up": new Animation()
-					.addFrame("girl-walking-up-0-4x.png", 1000),
-				"idle-right": new Animation()
-					.addFrame("girl-walking-right-0-4x.png", 1000),
-				"idle-down": new Animation()
-					.addFrame("girl-walking-down-0-4x.png", 1000),
-				"walking-left": new Animation()
-					.addFrame("girl-walking-left-1-4x.png", 200)
-					.addFrame("girl-walking-left-2-4x.png", 200),
-				"walking-up": new Animation()
-					.addFrame("girl-walking-up-1-4x.png", 200)
-					.addFrame("girl-walking-up-2-4x.png", 200),
-				"walking-right": new Animation()
-					.addFrame("girl-walking-right-1-4x.png", 200)
-					.addFrame("girl-walking-right-2-4x.png", 200),
-				"walking-down": new Animation()
-					.addFrame("girl-walking-down-1-4x.png", 200)
-					.addFrame("girl-walking-down-2-4x.png", 200),
-				"punch-left": new Animation()
-					.setLoop(false)
-					.addFrame("girl-punch-left-0-4x.png", 100)
-					.addFrame("girl-punch-left-1-4x.png", 100)
-					.addFrame("girl-walking-left-0-4x.png",  50),
-				"punch-up": new Animation()
-					.setLoop(false)
-					.addFrame("girl-punch-up-0-4x.png", 100)
-					.addFrame("girl-punch-up-1-4x.png", 100)
-					.addFrame("girl-walking-up-0-4x.png",  50),
-				"punch-right": new Animation()
-					.setLoop(false)
-					.addFrame("girl-punch-right-0-4x.png", 100)
-					.addFrame("girl-punch-right-1-4x.png", 100)
-					.addFrame("girl-walking-right-0-4x.png",  50),
-				"punch-down": new Animation()
-					.setLoop(false)
-					.addFrame("girl-punch-down-0-4x.png", 100)
-					.addFrame("girl-punch-down-1-4x.png", 100)
-					.addFrame("girl-walking-down-0-4x.png",  50)
-			};
+			this.boundary = app.scene.boundary;
 			
-			this.velocity = new Vector2D(0,0);
+			this.canHit = true;
+			
+			this.collisionShape = new Rectangle(20, 4, 26, 60);
+			this.punchLeftCollisionShape = new Rectangle(0, 20, 24, 32);
+			this.punchUpCollisionShape = new Rectangle(16, 4, 33, 24);
+			this.punchRightCollisionShape = new Rectangle(40, 20, 24, 32);
+			this.punchDownCollisionShape = new Rectangle(16, 40, 33, 24);
 			
 			this.direction = "down";
 			
-			this.animation = null;
+			this.hitDeltaTime = 0;
+			
+			this.hitDuration = 10;
+			
+			this.hitSound = getSound("sounds/hit-player.wav");
+			
+			this.hitSpeed = 8;
+			
+			this.tempInvincibleDeltaTime = 0;
+			
+			this.tempInvincibleDuration = 0;
+			
+			this.tempInvincible = false;
 			
 			this.punchDown = false;
+
+			this.speed = 4;
 			
 			this.state = null;
+			
+			this.velocity = new Vector2D(0,0);
+			
+			this.x = this.boundary.width/2 - 32;
+			this.y = this.boundary.height/2 - 32;
+
+			this.setAnimation("idle-down");
 			
 			this.setState("idle");
 		},
@@ -103,6 +95,66 @@ define(["PIXI", "rescue/engine", "rescue/utils"], function(PIXI, engine, utils) 
 			
 			return v;
 			
+		},
+		
+		getPunchCollisionShape: function() {
+			switch (this.direction) {
+				case "left":
+					return this.punchLeftCollisionShape;
+					break;
+				case "up":
+					return this.punchUpCollisionShape;
+					break;
+				case "right":
+					return this.punchRightCollisionShape;
+					break;
+				case "down":
+					return this.punchDownCollisionShape;
+					break;
+			}
+		},
+		
+		onEndUpdate: function() {
+			var x = this.collisionShape.x;
+			var y = this.collisionShape.y;
+			var width = this.collisionShape.width;
+			var height = this.collisionShape.height;
+			this.x = boundNumber(this.x, this.boundary.x, this.boundary.width - this.width);
+			this.y = boundNumber(this.y, this.boundary.y, this.boundary.height - this.height);
+		},
+		
+		onEnterHitByEnemyState: function() {
+			this.hitDeltaTime = 0;
+			this.tempInvincible = true;
+			switch (this.direction) {
+				case "left":
+					this.velocity = new Vector2D(1,0).scale(this.hitSpeed);
+					break;
+				case "up":
+					this.velocity = new Vector2D(0,1).scale(this.hitSpeed);
+					break;
+				case "right":
+					this.velocity = new Vector2D(-1,0).scale(this.hitSpeed);
+					break;
+				case "down":
+					this.velocity = new Vector2D(0,-1).scale(this.hitSpeed);
+					break;
+			}
+			this.hitSound.play();
+		},
+		
+		onUpdateHitByEnemyState: function() {
+			var ticker = getTicker();
+			
+			this.hitDeltaTime += ticker.deltaTime;
+			if (this.hitDeltaTime > this.hitDuration) {
+				this.setState("idle");
+			}
+			
+		},
+		
+		onExitHitByEnemyState: function() {
+			this.tempInvincible = false;
 		},
 		
 		onEnterIdleState: function() {
@@ -140,6 +192,7 @@ define(["PIXI", "rescue/engine", "rescue/utils"], function(PIXI, engine, utils) 
 		},
 		
 		onEnterPunchState: function() {
+			this.canHit = true;
 			this.setAnimation("punch-"+this.direction);
 			this.velocity = new  Vector2D(0,0);
 		},
@@ -149,6 +202,10 @@ define(["PIXI", "rescue/engine", "rescue/utils"], function(PIXI, engine, utils) 
 			if (this.animation.paused && !input.getInput("punch")) {
 				this.setState("idle");
 			}
+		},
+		
+		onExitPunchState: function() {
+			this.canHit = true;
 		},
 		
 		onEnterWalkingState: function() {
@@ -194,36 +251,10 @@ define(["PIXI", "rescue/engine", "rescue/utils"], function(PIXI, engine, utils) 
 				
 			this.velocity = v;
 			
-		},
-		
-		update: function() {
-			
-			switch (this.state) {
-				case "idle":
-					this.onUpdateIdleState();
-					break
-				case "punch":
-					this.onUpdatePunchState();
-					break
-				case "walking":
-					this.onUpdateWalkingState();
-					break
-			}
-			
-			var p = (new Vector2D(this.x, this.y)).add(this.velocity);
-			
-			var boundary = this.parent.boundary;
-			
-			this.x = boundNumber(p.x, boundary.x, boundary.x + boundary.width - this.width);
-			this.y = boundNumber(p.y, boundary.y, boundary.y + boundary.height - this.height);
-			
-			this.animation.update();
-			this.texture = TextureCache[this.animation.current()];
-			
-		},
+		}
 	
 	});
  
-	return __module__;
+	return Player;
 	
 });

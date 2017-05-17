@@ -1,8 +1,9 @@
-define(["rescue/utils"], function(utils) { 
-	var
-		mixin = utils.mixin;
+define([
+	"rescue/utils/mixin"
 	
-	var __module__ = function(x, y, width, height) {
+	], function( mixin ) { 
+	
+	var Rectangle = function(x, y, width, height) {
 		var self = this;
 		
 		this.x = x;
@@ -11,5 +12,14 @@ define(["rescue/utils"], function(utils) {
 		this.height = height;
 	};
 	
-	return __module__;
+	mixin(Rectangle.prototype, {
+		translate: function(vec) {
+			var rect = new Rectangle(this.x, this.y, this.width, this.height);
+			rect.x += vec.x;
+			rect.y += vec.y;
+			return rect;
+		}
+	});
+	
+	return Rectangle;
 });

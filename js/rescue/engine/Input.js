@@ -1,14 +1,13 @@
-define(["rescue/utils"], function(utils) { 
-	var utils = require("rescue/utils");
+define([
+	"rescue/utils/callIfDefined", 
+	"rescue/utils/log", 
+	"rescue/utils/mixin"
 	
-	var
-		callIfDefined = utils.callIfDefined,
-		log = utils.log,
-		mixin = utils.mixin;
+	], function( callIfDefined, log, mixin ) {
 		
 	var input;
 	
-	var __module__ = function() {
+	var Input = function() {
 		var self = this;
 		
 		function keyboard() {
@@ -88,7 +87,7 @@ define(["rescue/utils"], function(utils) {
 			false);
 	};
 	
-	mixin(__module__.prototype, {
+	mixin(Input.prototype, {
 		
 		addListener: function(listener) {
 			if (!this.listeners.includes(listener)) {
@@ -144,15 +143,15 @@ define(["rescue/utils"], function(utils) {
 		
 	});
 	
-	mixin(__module__, {
+	mixin(Input, {
 		getInstance: function () {
 			if (null == input) {
-				input = new __module__();
+				input = new Input();
 			}
 			return input;
 		}
 	});
  
-	return __module__;
+	return Input;
 	
 });

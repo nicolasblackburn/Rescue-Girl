@@ -1,8 +1,9 @@
-define(["rescue/utils"], function(utils) { 
-	var
-		mixin = utils.mixin;
+define([
+	"rescue/utils/mixin"
 	
-	var __module__ = function(x, y) {
+	], function( mixin ) { 
+	
+	var Vector2D = function(x, y) {
 		var self = this;
 		
 		this.x = x;
@@ -11,12 +12,12 @@ define(["rescue/utils"], function(utils) {
 		this._normal = null;
 	};
 	
-	mixin(__module__.prototype, {
-		add: function(vec) {
-			this.x += vec.x;
-			this.y += vec.y;
-			this._normal = null;
-			return this;
+	mixin(Vector2D.prototype, {
+		add: function(vec1) {
+			var vec2 = new Vector2D(this.x, this.y);
+			vec2.x += vec1.x;
+			vec2.y += vec1.y;
+			return vec2;
 		},
 		
 		eq: function(vec) {
@@ -28,29 +29,29 @@ define(["rescue/utils"], function(utils) {
 				var norm = Math.sqrt(this.x*this.x+this.y*this.y);
 				
 				if (0 == norm) {
-					this._normal = new __module__(0, 0);
+					this._normal = new Vector2D(0, 0);
 				} else {
-					this._normal = new __module__(this.x/norm, this.y/norm);
+					this._normal = new Vector2D(this.x/norm, this.y/norm);
 				}
 			}
 			return this._normal;
 		},
 		
-		sub: function(vec) {
-			this.x -= vec.x;
-			this.y -= vec.y;
-			this._normal = null;
-			return this;
+		sub: function(vec1) {
+			var vec2 = new Vector2D(this.x, this.y);
+			vec2.x -= vec1.x;
+			vec2.y -= vec1.y;
+			return vec2;
 		},
 		
 		scale: function(s) {
-			this.x *= s;
-			this.y *= s;
-			this._normal = null;
-			return this;
+			var vec = new Vector2D(this.x, this.y);
+			vec.x *= s;
+			vec.y *= s;
+			return vec;
 		}
 	});
  
-	return __module__;
+	return Vector2D;
 	
 });

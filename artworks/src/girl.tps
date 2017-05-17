@@ -199,6 +199,9 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../build/sprites/enemy-1-walking-down-0-4x.png</key>
+            <key type="filename">../build/sprites/enemy-1-walking-down-1-4x.png</key>
+            <key type="filename">../build/sprites/enemy-1-walking-down-2-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-down-0-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-down-1-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-down-2-4x.png</key>

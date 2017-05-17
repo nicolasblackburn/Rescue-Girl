@@ -1,39 +1,55 @@
-require(["PIXI", "rescue"], function(PIXI, rescue) {
+require([
+	"PIXI", 
+	"soundjs",
+	"rescue/utils/callIfDefined",
+	"rescue/utils/getTicker", 
+	"rescue/engine/Input", 
+	"rescue/engine/Rectangle", 
+	"rescue/scenes/MainScene", 
+	"polyfill/Array.prototype.includes"
+	
+	], function( PIXI, howler, callIfDefined, getTicker, Input, Rectangle, MainScene ) {
+		
 	var
 		autoDetectRenderer = PIXI.autoDetectRenderer,
-		callIfDefined = rescue.utils.callIfDefined,
-		getTicker = rescue.utils.getTicker,
-		Input = rescue.engine.Input,
-		loader = PIXI.loader,
-		MainScene = rescue.scenes.MainScene,
-		resources = PIXI.loader.resources,
-		Rectangle = rescue.engine.Rectangle,
-		Ticker = PIXI.ticker.Ticker;
+		loader = PIXI.loader;
 
-	var DEBUG = rescue.DEBUG = true;
-	var VIEWPORT = rescue.VIEWPORT = new Rectangle(0, 0, 16*55, 9*55);
+	var viewport = new Rectangle(0, 0, 16*55, 9*55);
 
-	var renderer = autoDetectRenderer(VIEWPORT.width, VIEWPORT.height);
+	var renderer = autoDetectRenderer(viewport.width, viewport.height);
 
 	document.body.appendChild(renderer.view);
 
 	var game = window.game = {
 		input: Input.getInstance(),
-		renderer: null,
+		renderer: renderer,
 		scene: null,
 		ticker: getTicker(),
+		viewport: viewport,
 
 		start: function() {
 			var self = this;
-
-			this.renderer = renderer;
-
-			loader
-				.add("girl", "textures/sprites.json")
-				.on("progress", this.onProgress)
-				.load(function() {
-					self.setup();
-			});
+			
+			//this.lastTime = performance.now();
+			//this.deltaTime = 0;
+			
+			sounds.whenLoaded = function() {
+				Object.keys(sounds).forEach(function(id) {
+					loader.resources[id] = sounds[id];
+				});
+				//loader.resources[]
+				loader
+					.add("textures/sprites.json")
+					.on("progress", this.onProgress)
+					.load(function() {
+						self.setup();
+					}
+				);
+			};
+			sounds.load([
+				"sounds/hit-enemy.wav",
+				"sounds/hit-player.wav"
+			]);
 		},
 
 		onProgress: function(loader, resource) {
@@ -49,28 +65,33 @@ require(["PIXI", "rescue"], function(PIXI, rescue) {
 			var self = this;
 			
 			var scene = new MainScene(this);
-			callIfDefined(scene, "setup", [this]);
-
-			scene.boundary = VIEWPORT;
 
 			this.scene = scene;
+			
+			callIfDefined(scene, "setup", [this]);
 
 			this.input.addListener(scene);
 
 			this.render();
 			
-			this.ticker.add(function(time) {
-				self.update(time);
+			this.ticker.add(function() {
+				self.update();
 			});
 
 			this.ticker.start();
 		},
 
-		update: function(time) {
+		update: function() {
+			
+			//this.deltaTime = performance.now() - this.lastTime;
+			//this.lastTime += this.deltaTime;
+			
+			//var self = this;
+  			//requestAnimationFrame(function() {self.update()});
 
 			this.input.processEvents();
 
-			callIfDefined(this.scene, "update", [time]);
+			callIfDefined(this.scene, "update");
 
 			this.render();
 
