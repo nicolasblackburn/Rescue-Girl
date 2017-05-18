@@ -12,8 +12,71 @@ define([
 	
 	], function( PIXI, PlayerAnimations, GameObject, Input, Rectangle, Vector2D, boundNumber, getSound, getTicker, mixin ) { 
 			
-	var Player = function() {
+	var Player = function(scene) {
 		GameObject.call(this);
+		
+		var self = this;
+		
+		this.animations = new PlayerAnimations();
+		
+		this.scene = scene;
+		
+		this.boundary = scene.boundary;
+		
+		this.canHit = true;
+		
+		this.collisionShape = new Rectangle(20, 24, 26, 24);
+		this.punchLeftCollisionShape = new Rectangle(0, 20, 32, 32);
+		this.punchUpCollisionShape = new Rectangle(16, 4, 32, 32);
+		this.punchRightCollisionShape = new Rectangle(32, 20, 32, 32);
+		this.punchDownCollisionShape = new Rectangle(16, 32, 32, 32);
+		
+		this.direction = "down";
+		
+		this.hitDeltaTime = 0;
+		
+		this.hitDuration = 10;
+		
+		this.hitSound = getSound("sounds/hit-player.wav");
+		
+		this.hitSpeed = 8;
+		
+		this.tempInvincibleDeltaTime = 0;
+		
+		this.tempInvincibleDuration = 0;
+		
+		this.tempInvincible = false;
+		
+		this.punchDown = false;
+
+		this.speed = 4;
+		
+		this.state = null;
+		
+		this.velocity = new Vector2D(0,0);
+		
+		this.x = this.boundary.width/2 - 32;
+		this.y = this.boundary.height/2 - 32;
+
+		this.setAnimation("idle-down");
+		
+		this.setState("idle");
+		
+		/*
+		function addRect(rect) {
+			var shape = new PIXI.Graphics();
+			shape.lineStyle(1, 0x6060F0);
+			shape.drawRect(
+				rect.x, 
+				rect.y, 
+				rect.width, 
+				rect.height
+			);
+			self.addChild(shape);
+		}
+		
+		addRect(this.collisionShape);
+		*/
 	};
 	
 	Player.prototype = Object.create(GameObject.prototype);
@@ -22,53 +85,6 @@ define([
 	var boundary = new Rectangle(0, 0, 16*55, 9*55);
 	
 	mixin(Player.prototype,  {
-		
-		setup: function(app) {
-			var self = this;
-		
-			this.animations = new PlayerAnimations();
-			
-			this.boundary = app.scene.boundary;
-			
-			this.canHit = true;
-			
-			this.collisionShape = new Rectangle(20, 4, 26, 60);
-			this.punchLeftCollisionShape = new Rectangle(0, 20, 24, 32);
-			this.punchUpCollisionShape = new Rectangle(16, 4, 33, 24);
-			this.punchRightCollisionShape = new Rectangle(40, 20, 24, 32);
-			this.punchDownCollisionShape = new Rectangle(16, 40, 33, 24);
-			
-			this.direction = "down";
-			
-			this.hitDeltaTime = 0;
-			
-			this.hitDuration = 10;
-			
-			this.hitSound = getSound("sounds/hit-player.wav");
-			
-			this.hitSpeed = 8;
-			
-			this.tempInvincibleDeltaTime = 0;
-			
-			this.tempInvincibleDuration = 0;
-			
-			this.tempInvincible = false;
-			
-			this.punchDown = false;
-
-			this.speed = 4;
-			
-			this.state = null;
-			
-			this.velocity = new Vector2D(0,0);
-			
-			this.x = this.boundary.width/2 - 32;
-			this.y = this.boundary.height/2 - 32;
-
-			this.setAnimation("idle-down");
-			
-			this.setState("idle");
-		},
 		
 		getMovementFromInput: function() {
 			var input = Input.getInstance();
@@ -124,6 +140,8 @@ define([
 		},
 		
 		onEnterHitByEnemyState: function() {
+			var scene = this.scene;
+			
 			this.hitDeltaTime = 0;
 			this.tempInvincible = true;
 			switch (this.direction) {
@@ -141,9 +159,18 @@ define([
 					break;
 			}
 			this.hitSound.play();
+			scene.subHealth(1);
+			
+			if (scene.health == 0) {
+				this.velocity = new Vector2D(0, 0);
+				this.setState("dead");
+				scene.gameOver();
+				return;
+			}
 		},
 		
 		onUpdateHitByEnemyState: function() {
+			var scene = this.scene;
 			var ticker = getTicker();
 			
 			this.hitDeltaTime += ticker.deltaTime;
@@ -155,6 +182,11 @@ define([
 		
 		onExitHitByEnemyState: function() {
 			this.tempInvincible = false;
+		},
+		
+		onEnterDeadState: function() {
+			this.velocity = new Vector2D(0,0);
+			this.setAnimation("dead");
 		},
 		
 		onEnterIdleState: function() {

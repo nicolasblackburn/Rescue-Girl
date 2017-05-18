@@ -79,17 +79,17 @@ define([
 	});
 	
 			
-			function addRect(rect) {
-				var shape = new PIXI.Graphics();
-				shape.lineStyle(1, 0x6060F0);
-				shape.drawRect(
-					rect.x, 
-					rect.y, 
-					rect.width, 
-					rect.height
-				);
-				self.addChild(shape);
-			}
+	function addRect(rect) {
+		var shape = new PIXI.Graphics();
+		shape.lineStyle(1, 0x6060F0);
+		shape.drawRect(
+			rect.x, 
+			rect.y, 
+			rect.width, 
+			rect.height
+		);
+		self.addChild(shape);
+	}
 	
 	return GameObject;
 	

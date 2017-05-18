@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-down-0-4x.png":
+"girl-dead-0-4x.png":
 {
 	"frame": {"x":196,"y":1,"w":64,"h":64},
 	"rotated": false,
@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-down-1-4x.png":
+"girl-punch-down-0-4x.png":
 {
 	"frame": {"x":261,"y":1,"w":64,"h":64},
 	"rotated": false,
@@ -40,7 +40,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-down-2-4x.png":
+"girl-punch-down-1-4x.png":
 {
 	"frame": {"x":326,"y":1,"w":64,"h":64},
 	"rotated": false,
@@ -64,7 +64,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-left-2-4x.png":
+"girl-punch-right-0-4x.png":
 {
 	"frame": {"x":66,"y":66,"w":64,"h":64},
 	"rotated": false,
@@ -72,7 +72,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-right-0-4x.png":
+"girl-punch-right-1-4x.png":
 {
 	"frame": {"x":131,"y":66,"w":64,"h":64},
 	"rotated": false,
@@ -80,7 +80,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-right-1-4x.png":
+"girl-punch-up-0-4x.png":
 {
 	"frame": {"x":196,"y":66,"w":64,"h":64},
 	"rotated": false,
@@ -88,7 +88,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-right-2-4x.png":
+"girl-punch-up-1-4x.png":
 {
 	"frame": {"x":261,"y":66,"w":64,"h":64},
 	"rotated": false,
@@ -96,7 +96,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-up-0-4x.png":
+"girl-uppercut-left-0-4x.png":
 {
 	"frame": {"x":326,"y":66,"w":64,"h":64},
 	"rotated": false,
@@ -104,7 +104,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-up-1-4x.png":
+"girl-uppercut-left-1-4x.png":
 {
 	"frame": {"x":391,"y":66,"w":64,"h":64},
 	"rotated": false,
@@ -112,7 +112,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-punch-up-2-4x.png":
+"girl-uppercut-right-0-4x.png":
 {
 	"frame": {"x":1,"y":131,"w":64,"h":64},
 	"rotated": false,
@@ -120,7 +120,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-left-0-4x.png":
+"girl-uppercut-right-1-4x.png":
 {
 	"frame": {"x":66,"y":131,"w":64,"h":64},
 	"rotated": false,
@@ -128,7 +128,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-left-1-4x.png":
+"girl-walking-down-0-4x.png":
 {
 	"frame": {"x":131,"y":131,"w":64,"h":64},
 	"rotated": false,
@@ -136,7 +136,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-left-2-4x.png":
+"girl-walking-down-1-4x.png":
 {
 	"frame": {"x":196,"y":131,"w":64,"h":64},
 	"rotated": false,
@@ -144,7 +144,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-right-0-4x.png":
+"girl-walking-down-2-4x.png":
 {
 	"frame": {"x":261,"y":131,"w":64,"h":64},
 	"rotated": false,
@@ -152,7 +152,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-right-1-4x.png":
+"girl-walking-left-0-4x.png":
 {
 	"frame": {"x":326,"y":131,"w":64,"h":64},
 	"rotated": false,
@@ -160,7 +160,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-right-2-4x.png":
+"girl-walking-left-1-4x.png":
 {
 	"frame": {"x":391,"y":131,"w":64,"h":64},
 	"rotated": false,
@@ -168,7 +168,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-up-0-4x.png":
+"girl-walking-left-2-4x.png":
 {
 	"frame": {"x":1,"y":196,"w":64,"h":64},
 	"rotated": false,
@@ -176,7 +176,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-up-1-4x.png":
+"girl-walking-right-0-4x.png":
 {
 	"frame": {"x":66,"y":196,"w":64,"h":64},
 	"rotated": false,
@@ -184,7 +184,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-uppercut-up-2-4x.png":
+"girl-walking-right-1-4x.png":
 {
 	"frame": {"x":131,"y":196,"w":64,"h":64},
 	"rotated": false,
@@ -192,7 +192,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-walking-down-0-4x.png":
+"girl-walking-right-2-4x.png":
 {
 	"frame": {"x":196,"y":196,"w":64,"h":64},
 	"rotated": false,
@@ -200,7 +200,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-walking-down-1-4x.png":
+"girl-walking-up-0-4x.png":
 {
 	"frame": {"x":261,"y":196,"w":64,"h":64},
 	"rotated": false,
@@ -208,7 +208,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-walking-down-2-4x.png":
+"girl-walking-up-1-4x.png":
 {
 	"frame": {"x":326,"y":196,"w":64,"h":64},
 	"rotated": false,
@@ -216,73 +216,9 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"girl-walking-left-0-4x.png":
-{
-	"frame": {"x":391,"y":196,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
-"girl-walking-left-1-4x.png":
-{
-	"frame": {"x":1,"y":261,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
-"girl-walking-left-2-4x.png":
-{
-	"frame": {"x":66,"y":261,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
-"girl-walking-right-0-4x.png":
-{
-	"frame": {"x":131,"y":261,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
-"girl-walking-right-1-4x.png":
-{
-	"frame": {"x":196,"y":261,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
-"girl-walking-right-2-4x.png":
-{
-	"frame": {"x":261,"y":261,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
-"girl-walking-up-0-4x.png":
-{
-	"frame": {"x":326,"y":261,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
-"girl-walking-up-1-4x.png":
-{
-	"frame": {"x":391,"y":261,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64}
-},
 "girl-walking-up-2-4x.png":
 {
-	"frame": {"x":1,"y":326,"w":64,"h":64},
+	"frame": {"x":391,"y":196,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -295,6 +231,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9945d33368b4d66ca42f54e00e66e7d0:53dc595c12a00e5686f507e5bbe8a1e4:1eabdf11f75e3a4fe3147baf7b5be24b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e31e23374cbb5213b06029783398347b:99d4a3459d5bec827213359c25e48de0:1eabdf11f75e3a4fe3147baf7b5be24b$"
 }
 }

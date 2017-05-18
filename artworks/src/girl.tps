@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>/home/nicolas/Projets/rescue/artworks/src/girl.tps</string>
+        <string>/home/nicolas/Projets/rescue-girl/artworks/src/girl.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -202,27 +202,19 @@
             <key type="filename">../build/sprites/enemy-1-walking-down-0-4x.png</key>
             <key type="filename">../build/sprites/enemy-1-walking-down-1-4x.png</key>
             <key type="filename">../build/sprites/enemy-1-walking-down-2-4x.png</key>
+            <key type="filename">../build/sprites/girl-dead-0-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-down-0-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-down-1-4x.png</key>
-            <key type="filename">../build/sprites/girl-punch-down-2-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-left-0-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-left-1-4x.png</key>
-            <key type="filename">../build/sprites/girl-punch-left-2-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-right-0-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-right-1-4x.png</key>
-            <key type="filename">../build/sprites/girl-punch-right-2-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-up-0-4x.png</key>
             <key type="filename">../build/sprites/girl-punch-up-1-4x.png</key>
-            <key type="filename">../build/sprites/girl-punch-up-2-4x.png</key>
             <key type="filename">../build/sprites/girl-uppercut-left-0-4x.png</key>
             <key type="filename">../build/sprites/girl-uppercut-left-1-4x.png</key>
-            <key type="filename">../build/sprites/girl-uppercut-left-2-4x.png</key>
             <key type="filename">../build/sprites/girl-uppercut-right-0-4x.png</key>
             <key type="filename">../build/sprites/girl-uppercut-right-1-4x.png</key>
-            <key type="filename">../build/sprites/girl-uppercut-right-2-4x.png</key>
-            <key type="filename">../build/sprites/girl-uppercut-up-0-4x.png</key>
-            <key type="filename">../build/sprites/girl-uppercut-up-1-4x.png</key>
-            <key type="filename">../build/sprites/girl-uppercut-up-2-4x.png</key>
             <key type="filename">../build/sprites/girl-walking-down-0-4x.png</key>
             <key type="filename">../build/sprites/girl-walking-down-1-4x.png</key>
             <key type="filename">../build/sprites/girl-walking-down-2-4x.png</key>

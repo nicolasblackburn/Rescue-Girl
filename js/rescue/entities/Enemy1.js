@@ -12,8 +12,59 @@ define([
 	
 	], function( PIXI, Enemy1Animations, collideAABB, GameObject, Rectangle, Vector2D, boundNumber, getSound, getTicker, mixin ) { 
 	
-	var Enemy1 = function() {
+	var Enemy1 = function(scene) {
 		GameObject.call(this);
+			
+		this.scene = scene;
+		
+		this.animations = new Enemy1Animations();
+		
+		this.animation = null;
+		
+		this.boundary = scene.boundary;
+		
+		this.collisionShape = new Rectangle(24, 4, 16, 60);
+		
+		this.direction = "down";
+		
+		this.hitDeltaTime = 0;
+		
+		this.hitDuration = 8;
+		
+		this.hitSound = getSound("sounds/hit-enemy.wav");
+		
+		this.hitSpeed = 10;
+		
+		this.overlap = false;
+		
+		this.overlapDeltaTime = 0;
+		
+		this.overlapDuration = 10;
+		
+		this.scorePoints = 1;
+		
+		this.scoutDeltaTime = 0;
+		
+		this.scoutDuration = 50;
+
+		this.speed = 1.3;
+		
+		this.state = null;
+		
+		var x = this.collisionShape.x;
+		var y = this.collisionShape.y;
+		var width = this.collisionShape.width;
+		var height = this.collisionShape.height;
+		this.x = Math.random()*this.boundary.width;
+		this.y = Math.random()*this.boundary.height;
+		this.x = boundNumber(this.x, this.boundary.x, this.boundary.width - this.width);
+		this.y = boundNumber(this.y, this.boundary.y, this.boundary.height - this.height);
+		
+		this.velocity = new Vector2D(0,0);
+
+		this.setAnimation("walking");
+		
+		this.setState("scout");
 	};
 	
 	Enemy1.prototype = Object.create(GameObject.prototype);
@@ -22,58 +73,6 @@ define([
 	var boundary = new Rectangle(0, 0, 16*55, 9*55);
 	
 	mixin(Enemy1.prototype,  {
-		
-		setup: function(app) {
-			
-			this.app = app;
-			
-			this.animations = new Enemy1Animations();
-			
-			this.animation = null;
-			
-			this.boundary = app.scene.boundary;
-			
-			this.collisionShape = new Rectangle(24, 4, 16, 60);
-			
-			this.direction = "down";
-			
-			this.hitDeltaTime = 0;
-			
-			this.hitDuration = 8;
-			
-			this.hitSound = getSound("sounds/hit-enemy.wav");
-			
-			this.hitSpeed = 10;
-			
-			this.overlap = false;
-			
-			this.overlapDeltaTime = 0;
-			
-			this.overlapDuration = 10;
-			
-			this.scoutDeltaTime = 0;
-			
-			this.scoutDuration = 50;
-
-			this.speed = 1.3;
-			
-			this.state = null;
-			
-			var x = this.collisionShape.x;
-			var y = this.collisionShape.y;
-			var width = this.collisionShape.width;
-			var height = this.collisionShape.height;
-			this.x = Math.random()*this.boundary.width;
-			this.y = Math.random()*this.boundary.height;
-			this.x = boundNumber(this.x, this.boundary.x, this.boundary.width - this.width);
-			this.y = boundNumber(this.y, this.boundary.y, this.boundary.height - this.height);
-			
-			this.velocity = new Vector2D(0,0);
-
-			this.setAnimation("walking");
-			
-			this.setState("scout");
-		},
 		
 		onEndUpdate: function() {
 			var x = this.collisionShape.x;
@@ -85,7 +84,8 @@ define([
 		},
 
 		onEnterHitState: function() {
-			var player = this.app.scene.player;
+			var player = this.scene.player;
+			var scene = this.scene;
 			
 			this.hitDeltaTime = 0; 
 			
@@ -105,15 +105,17 @@ define([
 			}
 			
 			this.hitSound.play();
+			scene.enemyCount--;
+			scene.addScore(this.scorePoints);
 		},
 		
 		onUpdateHitState: function() {
-			var scene = this.app.scene;
+			var scene = this.scene;
 			var ticker = getTicker();
 			
 			this.hitDeltaTime += ticker.deltaTime;
 			if (this.hitDeltaTime > this.hitDuration) {
-				scene.removeChild(this);
+				this.parent.removeChild(this);
 			}
 		},
 
@@ -127,7 +129,7 @@ define([
 		
 		onUpdateScoutState: function() {
 			var ticker = getTicker();
-			var scene = this.app.scene;
+			var scene = this.scene;
 			var player = scene.player;
 			
 			this.scoutDeltaTime += ticker.deltaTime; 
@@ -145,26 +147,26 @@ define([
 					return;
 				}
 			
-			} else if (!player.tempInvincible) {
+			} else if (!player.tempInvincible && player.state !== "dead") {
 			
 				if (collideAABB(
 					player.collisionShape.translate(player.position), 
 						this.collisionShape.translate(this.position))) {
 						
-					if (! this.overlap) {
-						this.overlap = true;
-						this.overlapDeltaTime = 0;
-					} else {
-						this.overlapDeltaTime += ticker.deltaTime;
-					}
+					//if (! this.overlap) {
+					//	this.overlap = true;
+					//	this.overlapDeltaTime = 0;
+					//} else {
+					//	this.overlapDeltaTime += ticker.deltaTime;
+					//}
 			
-					if (this.overlapDeltaTime > this.overlapDuration) {
-						this.overlap = false;
-						this.app.scene.player.setState("hitByEnemy");
-					}
+					//if (this.overlapDeltaTime > this.overlapDuration) {
+					//	this.overlap = false;
+						player.setState("hitByEnemy");
+					//}
 				
 				} else {
-					this.overlap = 0;
+					this.overlap = false;
 				}
 			}
 			

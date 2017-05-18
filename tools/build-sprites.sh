@@ -38,6 +38,9 @@ for fp in $IMG_BUILD_DIR/sprites/*.png; do
 	rm -f $fp
 done
 
+# delete duplicate images
+find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate | awk -F '  ' '{print $2}' | sed '/^$/d' | xargs rm
+
 # glue "$IMG_BUILD_DIR/sprites" "$IMG_BUILD_DIR" --json --css --json-format=hash
 
 # resize files

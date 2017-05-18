@@ -2,21 +2,25 @@ define(["rescue/engine/Animation", "rescue/utils/mixin"], function(Animation, mi
 	
 	function PlayerAnimations() {
 		mixin(this, {
+			"dead": new Animation()
+				.setLoop(false)
+				.addFrame("girl-dead-0-4x.png", 0),
+
 			"idle-left": new Animation()
 				.setLoop(false)
-				.addFrame("girl-walking-left-0-4x.png", 1000),
+				.addFrame("girl-walking-left-0-4x.png", 0),
 
 			"idle-up": new Animation()
 				.setLoop(false)
-				.addFrame("girl-walking-up-0-4x.png", 1000),
+				.addFrame("girl-walking-up-0-4x.png", 0),
 
 			"idle-right": new Animation()
 				.setLoop(false)
-				.addFrame("girl-walking-right-0-4x.png", 1000),
+				.addFrame("girl-walking-right-0-4x.png", 0),
 
 			"idle-down": new Animation()
 				.setLoop(false)
-				.addFrame("girl-walking-down-0-4x.png", 1000),
+				.addFrame("girl-walking-down-0-4x.png", 0),
 
 			"walking-left": new Animation()
 				.addFrame("girl-walking-left-1-4x.png", 200)

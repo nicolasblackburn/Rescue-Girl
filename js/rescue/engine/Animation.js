@@ -23,7 +23,10 @@ define([
 		},
 		
 		current: function() {
-			return this.frames[this.currentFrame].object;
+			if (this.frames[this.currentFrame]) {
+				return this.frames[this.currentFrame].object;
+			}
+			return null;
 		},
 		
 		rewind: function() {

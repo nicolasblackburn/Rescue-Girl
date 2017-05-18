@@ -28,12 +28,6 @@ define([
 			});	
 		},
 		
-		setup: function(app) {
-			this.children.forEach(function(o) {
-				callIfDefined(o, "setup", [app]);
-			});	
-		},
-		
 		update: function() {
 			this.children.forEach(function(o) {
 				callIfDefined(o, "update");
